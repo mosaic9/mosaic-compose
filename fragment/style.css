@@ -1,0 +1,50 @@
+html {
+    font-family: 'Lato', sans-serif;
+    font-size: 16px;
+    line-height: 1.45;
+
+    --color-1: #6ECADC;
+    --color-2: #E9A820;
+    --color-3: #E01563;
+    --color-4: #3EB991;
+    --color-5: #FFFFFF;
+
+    --offset-s: 1.2em;
+    --offset-m: 1.44em;
+}
+
+main {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: baseline;
+}
+
+.tile {
+    flex: 1 1 300px;
+    margin-right: var(--offset-s);
+    margin-bottom: var(--offset-m);
+}
+
+footer {
+    margin-top: var(--offset-m);
+    padding-top: var(--ofset-s);
+    border-top: 4px solid var(--color-3);
+}
+
+.wrapper {
+    max-width: 800px;
+    margin: auto;
+}
+
+
+.list {
+    margin-top: var(--offset-s);
+}
+
+
+.fragment {
+    background-color: var(--color-1);
+    color: var(--color-5);
+    padding: var(--offset-s);
+    display: inline-block;
+}

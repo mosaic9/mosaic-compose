@@ -1,0 +1,36 @@
+
+staticText: Path("/static-text")
+    -> latency(4000)
+    -> compress()
+    -> setPath("/text.txt")
+    -> "http://static-server:80";
+
+
+appendSlot: Path("/append-slot")
+    -> setPath("/slot.txt")
+    -> "http://static-server:80";
+
+loadsJquery: Path("/loads-jquery")
+    -> latency(2000)
+    -> setResponseHeader("Link", "<https://code.jquery.com/jquery-2.2.4.min.js>; rel=\"fragment-script\"")
+    -> <shunt>;
+
+brokenFragment: Path("/broken")
+    -> status(500)
+    -> <shunt>;
+
+fragmentFallback: Path("/fallback")
+    -> setPath("/fallback.html")
+    -> "http://static-server:80";
+
+favicon: Path("/favicon.ico")
+    -> status(200)
+    -> <shunt>;
+
+fragmentStatic: PathSubtree("/static")
+    -> "http://fragment:9090";
+
+tailor: *
+    -> compress()
+    -> setPath("/content")
+    -> "http://tailor:8001/";

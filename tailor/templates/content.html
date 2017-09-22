@@ -1,0 +1,49 @@
+<div slot="section-1">
+    <strong>Mosaic & docker-compose</strong>
+
+    <p>
+        Welcome to the mosaic demo website. While exploring this codebase you will get some idea of how
+        different pieces of mosaic fit together, we have quite a few moving parts here. Try to understand how
+        each one of them actually gets rendered.
+    </p>
+
+    <fragment
+        src="http://fragment:9090/"
+    ></fragment>
+</div>
+
+
+<div slot="section-2">
+    <div>
+        <strong>
+            Templates
+        </strong>
+
+        <p>This text is rendered from the <strong>content.html</strong> template in tailor/templates directory.
+        That particular file is used, because skipper runs setPath("/content") in the tailor route (so there's a
+        convention on how templates are picked-up based on path).</p>
+    </div>
+</div>
+
+<div slot="section-3">
+    <strong>Slots</strong>
+
+    <p>
+        You can use slots to inject information in predefined places of a tailor template from a fragment or (in
+        this case) a child template.
+    </p>
+</div>
+
+<fragment
+    slot="section-3"
+    src="http://skipper:9090/append-slot"
+></fragment>
+
+<div slot="section-4">
+    <strong>Fallbacks</strong>
+
+    <fragment
+        src="http://skipper:9090/broken"
+        fallback-src="http://skipper:9090/fallback"
+    ></fragment>
+</div>

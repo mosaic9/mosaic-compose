@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+
+    <title>Mosaic with docker-compose</title>
+
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,700,900" rel="stylesheet" />
+</head>
+<body>
+    <div class="wrapper">
+        <main>
+            <div class="tile">
+                <slot name="section-1"></slot>
+            </div>
+            <div class="tile">
+                <slot name="section-2"></slot>
+            </div>
+            <div class="tile">
+                <slot name="section-3"></slot>
+            </div>
+            <div class="tile">
+                <slot name="section-4"></slot>
+            </div>
+            <div class="tile">
+                <slot name="section-5"></slot>
+            </div>
+        </main>
+        <footer>
+            <p>Skipper would also try to stream the actual content ASAP and make breaks whenever something's taking time. This creates a more positive loading perception for our users. Like this footer below (wait, it's loading...)</p>
+            <fragment async timeout="10000" src="http://skipper:9090/static-text"></fragment>
+        </footer>
+        <fragment async timeout="10000" src="http://skipper:9090/loads-jquery"></fragment>
+    </div>
+</body>
+</html>

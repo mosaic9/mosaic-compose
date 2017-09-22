@@ -1,0 +1,1 @@
+If slot was referred multiple times during rendering, content will be appended.

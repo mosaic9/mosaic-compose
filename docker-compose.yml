@@ -1,0 +1,48 @@
+version: "3"
+services:
+  tailor:
+    image: registry.opensource.zalan.do/pathfinder/tailor-demo:0.0.3
+    ports:
+      - "8001:8001"
+    volumes:
+      - ./tailor/templates:/opt/tailor/templates
+      - ./tailor/dev:/opt/tailor/dev
+    command: ["node", "index.js", "--port", "8001"]
+    environment:
+      NODE_ENV: dev
+      NODE_DEBUG: cluster
+      NODE_TLS_REJECT_UNAUTHORIZED: 0
+      BASE_TEMPLATE: ./dev/base-template
+  etcd:
+    image: quay.io/coreos/etcd:latest
+    command: ["etcd", "-advertise-client-urls", "http://0.0.0.0:2379", "-listen-client-urls", "http://0.0.0.0:2379,http://0.0.0.0:4001"]
+    ports:
+      - "2379:2379"
+      - "4001:4001"
+  skipper:
+    image: registry.opensource.zalan.do/pathfinder/skipper:latest
+    depends_on:
+      - tailor
+      - etcd
+    command:
+      - "/usr/bin/skipper"
+      - "-routes-file"
+      - "/var/skipper/default-routes.eskip"
+      - "-etcd-urls"
+      - "http://etcd:2379"
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./skipper:/var/skipper
+      - /etc/ssl/certs:/etc/ssl/certs
+  fragment:
+    build:
+      context: ./fragment
+    ports:
+      - "8003:9090"
+    volumes:
+      - ./fragment:/fragment
+  static-server:
+    image: nginx
+    volumes:
+      - ./static:/usr/share/nginx/html:ro
